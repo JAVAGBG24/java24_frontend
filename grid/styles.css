@@ -1,0 +1,55 @@
+.container {
+  display: grid;
+  width: 1000px;
+  margin: 30px auto;
+
+  grid-template-rows: 100px 200px 400px 100px;
+  grid-template-columns: repeat(3, 1fr) 200px;
+  gap: 30px;
+
+  grid-template-areas:
+    "header header header header"
+    "box-1 box-2 box-3 sidebar"
+    "main main main sidebar"
+    "footer footer footer footer";
+}
+
+.header,
+.small-box,
+.main-content,
+.sidebar,
+.footer {
+  background-color: blueviolet;
+  padding: 20px;
+  color: white;
+  font-size: 30px;
+  font-family: sans-serif;
+}
+
+.header {
+  grid-area: header;
+}
+
+.one {
+  grid-area: box-1;
+}
+
+.two {
+  grid-area: box-2;
+}
+
+.three {
+  grid-area: box-3;
+}
+
+.sidebar {
+  grid-area: sidebar;
+}
+
+.main-content {
+  grid-area: main;
+}
+
+.footer {
+  grid-area: footer;
+}
