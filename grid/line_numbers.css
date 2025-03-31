@@ -1,0 +1,59 @@
+/*METOD 1: line numbers
+
+varje grid-kolumn och grid-rad skapar två linjer: en vid starten och en vid slutet. 
+dessa linjer kan användas för att placera och storleksbestämma grid-items.
+
+kolumnlinjer: numreras vertikalt från vänster till höger.
+radlinjer: numreras horisontellt från toppen till botten.*/
+.container {
+  background-color: lightgray;
+  display: grid;
+  width: 1000px;
+  margin: 30px auto;
+  gap: 30px;
+  /*  header, boxes, main, footer */
+  grid-template-rows: 100px 200px 400px 100px;
+  /* sidebar 200px resten delat på ytan som är tillgänglig */
+  grid-template-columns: repeat(3, 1fr) 200px;
+}
+
+.header,
+.small-box,
+.main-content,
+.sidebar,
+.footer {
+  background-color: blueviolet;
+  padding: 20px;
+  color: white;
+  font-size: 30px;
+  font-family: sans-serif;
+}
+/*
+    grid-row:1/-1 kommer inte att overrida rutnätsstrukturen 
+    efter att ha placerat alla element, men kommer att overrida 
+    den ursprungliga definitionen av rutnätet innan du placerar 
+    något element och detta rutnät innehåller 3 kolumner 
+  
+    grid-row:1/-1 betyder grid-row-start:1 och grid-row-end:-1
+    */
+.header {
+  grid-column: 1 / -1;
+}
+/*
+    kolumnen börjar på fyra och slutar på fem
+    raden har ett helt span över två rader och börjar på rad 2
+    */
+.sidebar {
+  grid-column: 4 / 5;
+  grid-row: 2 / span 2;
+}
+/*
+    kolumnen börjar på 1 och sträcker sig över 3 kolumner
+    */
+.main-content {
+  grid-column: 1 / span 3;
+}
+
+.footer {
+  grid-column: 1 / -1;
+}

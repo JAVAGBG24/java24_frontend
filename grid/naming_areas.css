@@ -1,3 +1,17 @@
+/*
+att namnge områden i CSS Grid är en teknik där du kan definiera områden 
+i din grid-layout med hjälp av meningsfulla namn, vilket gör det lättare 
+att placera innehåll och förstå layoutens struktur. Detta är särskilt 
+användbart för komplexa layouter där visuell klarhet kan förbättra 
+utvecklingsprocessen.
+
+du kan definiera grid-områden genom att använda grid-template-areas-egenskapen 
+i din grid-container. varje område representeras av en sträng av namn, 
+där varje namn motsvarar en grid-cell. om du vill att ett område 
+ska sträcka sig över flera celler, upprepar du namnet i de berörda cellerna. 
+för att representera tomma celler kan du använda en punkt (.)
+*/
+
 .container {
   display: grid;
   width: 1000px;

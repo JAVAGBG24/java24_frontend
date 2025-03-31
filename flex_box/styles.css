@@ -1,7 +1,24 @@
+/*EXEMPEL 1, container gäller för exempel 3 också*/
+
+/*Stretch all, fixed spacing
+  det mest grundläggande flexbox-mönstret: 
+  få några lådor att sträcka ut och fylla hela bredden av 
+  sitt parent element. Du behöver display flex på container,
+  och flex-grow värde på över 0 på children.
+  
+  +-operatorn i CSS kallas för adjacent sibling combinator. 
+  den väljer ett element som är direkt efter ett annat specifikt element, 
+  där båda är barn till samma föräldraelement.
+
+  vi använder en + för att bara lägga till mellanrum mellan 
+  par av items, kort sagt skippar margin left för första item i listan
+  */
+
+/*parent*/
 body {
   margin: 3rem;
 }
-
+/*children*/
 .container {
   display: flex;
   gap: 1rem;
@@ -18,10 +35,29 @@ body {
   margin-left: 2%;
 } */
 
+/*EXEMPEL 2
+
+att öka flex-grow kommer att öka mängden utrymme som ett element 
+tillåts sträcka sig till jämfört med vilket annat element som helst.
+
+om vi sätter flex-grow: 2 på mitten elementet skulle vi i 
+princip dela upp det tillgängliga utrymmet i 6 bitar 
+(1 bit för varje item plus 1 extra för mittelementet, 1+1+2+1+1). 
+det mellersta objektet får två bitar (flex-grow: 2) 
+värde av utrymme, och alla andra element får en bit 
+(flex-grow: 1).
+*/
+
 .middle {
   flex-grow: 2;
 }
 
+/*EXEMPEL 3
+Strectch middle, fixed spacing
+även om mittelementet här har en definierad bredd på 100px, 
+kommer flex-grow att få det att sträcka sig för att ta upp 
+allt tillgängligt utrymme.
+*/
 .stretch {
   background-color: peru;
   height: 100px;
@@ -33,12 +69,34 @@ body {
   flex-grow: 1;
 }
 
+/*EXEMPEL 4, exempel 5 + 6 har samma flex container class*/
+
+/*4. Alternating grid
+flex-wrap: wrap på containern (eller så renderas alla objekt på en enda rad)
+
+ justify-content: space-between på containern för att bara skapa 
+ utrymme mellan elementen (och inte mellan kanten på parent elementet och items)
+
+ ställ in varje items bredd till 49 % (eller något liknande som är 
+ lika med eller mindre än 50 %)
+
+CSS-regeln använder :nth-child pseudo-klassen för att selekta varje tredje 
+element med klassen .blog som är ett barn till sin förälder, och tillämpar 
+stilen width: 100%; på dessa utvalda element.
+
+3n i :nth-child(3n) är en formel där n är en räknare som börjar från 0. 
+Så 3n väljer varje tredje element. Mer specifikt, :nth-child(3n) matchar 
+varje tredje element, såsom det tredje barnet, det sjätte barnet, 
+det nionde barnet, och så vidare.
+*/
+
+/*parent*/
 .container-blog {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
-
+/*children*/
 .blog {
   background-color: goldenrod;
   height: 100px;
@@ -51,6 +109,39 @@ body {
   width: 100%;
 }
 
+/*EXEMPEL 5*/
+
+/*
+3X3 grid
+vi kan skapa ett 3x3-rutnät genom att ställa in flex-grow 
+till 0 och flex-basis till önskad bredd för alla chidren
+här gjort med flex-shorthand: flex: 0 32%. 
+
+i CSS är flex en shorthand-egenskap som används inom Flexbox-layoutmodellen. 
+Den kombinerar flex-grow, flex-shrink, och flex-basis i en enda deklaration. 
+När du ser flex: 0 32%;, definierar det två saker:
+
+flex-grow: Det första värdet (i detta fall 0) anger flex-grow-faktorn 
+av flex-elementet. flex-grow bestämmer hur mycket ett element 
+ska växa relativt till resten av flex-elementen inom samma container, 
+om det finns tillgängligt utrymme. Ett värde av 0 betyder att detta 
+element inte kommer att växa utöver sin basstorlek för att fylla 
+tillgängligt utrymme.
+
+flex-basis: Det andra värdet (32%) specificerar flex-basis, 
+vilket är den initiala storleken på elementet innan utrymmet 
+distribueras enligt flex-grow och flex-shrink. I det här fallet 
+sätts elementets basstorlek till 32% av sin flex-container's storlek.
+
+marginalerna mellan items är resterna från varje rad, 
+dvs (100%-32x3)/2=2%. 
+jag har matchat marginalen (marginal-botten: 2%) för att uppnå 
+jämnt avstånd mellan alla element
+
+du kan ändra flex-basen för att öka eller minska antalet 
+objekt på varje rad. flex: 0 24% skulle sätta 4 objekt på varje rad,
+flex: 0 19% skulle sätta 5 objekt på varje rad, och så vidare.
+*/
 .grid-item {
   background-color: khaki;
   height: 100px;
@@ -59,6 +150,19 @@ body {
   margin-bottom: 2%;
 }
 
+/*EXEMPEL 6*/
+/*
+3x3 grid constrained proportions (1:1)
+vi kan skapa ett rutnät fullt av items med begränsade 
+proportioner genom att använda ett lite hackigt CSS-trick. 
+om vi ​​använder % när vi ställer in padding på ett element ställs 
+paddingen i förhållande till objektets parent bredd, 
+.container-blog i detta fall. 
+vi kan använda den effekten för att skapa en kvadrat genom 
+att ställa in ett objekts bredd och padding-bottom till samma värde 
+(och effektivt ställa in höjden på det elementet genom 
+padding-bottom):
+*/
 .grid-1-1 {
   background-color: lightpink;
   width: 32%;
@@ -68,6 +172,26 @@ body {
   position: relative;
 }
 
+/*EXEMPEL 7 & 8*/
+
+/*
+Graph: vertical bars
+om du vill använda flexbox för att skapa en enkel 
+grafvisualisering är allt du behöver göra att ställa 
+in align-objekt i containern till flex-end och 
+definiera en höjd för varje stapel. 
+flex-end kommer att se till att staplarna är 
+förankrade i botten av grafen.
+
+Graph: horizontal bars
+med samma teknik som för vertikala staplar kan vi helt enkelt 
+lägga till flex-direction på behållaren med ett värde på kolumn 
+för att skapa en uppsättning horisontella staplar. 
+flex-direction kan ha värdet row (standard) eller column, 
+där en rad löper horisontellt (→) och en kolumn löper vertikalt (↓).
+du kan också vända riktningen för båda genom att använda row-reverse (←)
+respektive column-reverse (↑).
+*/
 .container-graph {
   display: flex;
   height: 300px;
@@ -108,6 +232,8 @@ body {
   width: 30%;
 }
 
+/*EXEMPEL 9*/
+/*parent, flex container*/
 .container-stack {
   display: flex;
   flex-direction: column;
